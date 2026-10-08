@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Calculadora de funciones racionales | UNACH</title>
+
+  <!-- Fuentes: DM Sans (títulos) y Source Sans 3 (texto). Sin internet se usa la sans-serif del sistema. -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Source+Sans+3:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="/src/styles/styles.css">
+  <script src="/src/js/app.js" defer></script>
+</head>
+<body>
+
+  <!--
+    Cada vista es una <section class="vista"> con un atributo data-vista.
+    Ese nombre se usa en los enlaces (href="#nombre") y en app.js.
+    El manual de usuario NO es una vista: es el <dialog id="manual"> que está al final del body.
+  -->
+  <main id="app">
+
+    <!-- ========== VISTA 1: INICIO ========== -->
+    <section class="vista inicio" id="vista-inicio" data-vista="inicio">
+      <header class="barra">
+        <a class="marca" href="#inicio">
+          <span class="marca__logo">U</span>
+          <span class="marca__nombre">UNACH</span>
+        </a>
+        <a class="barra__enlace" href="#creditos">Créditos</a>
+      </header>
+
+      <div class="portada">
+        <h1 class="portada__titulo">
+          <strong>Calculadora de</strong>
+          <span>funciones racionales</span>
+        </h1>
+        <p class="portada__descripcion">
+          Calcula el dominio, el rango y las asíntotas de una función racional.
+        </p>
+        <a class="boton" href="#calculadora">Inicializar Calculadora</a>
+        <button type="button" class="portada__manual" data-accion="abrir-manual">Manual de usuario</button>
+      </div>
+    </section>
+
+    <!-- ========== VISTA 2: CALCULADORA ========== -->
+    <section class="vista calculadora" id="vista-calculadora" data-vista="calculadora" hidden>
+      <header class="barra">
+        <a class="marca" href="#inicio">
+          <span class="marca__logo">U</span>
+          <span class="marca__nombre">UNACH</span>
+        </a>
+        <nav class="barra__navegacion" aria-label="Principal">
+          <button type="button" class="barra__enlace barra__enlace--boton" data-accion="abrir-manual">Manual</button>
+          <a class="barra__enlace" href="#creditos">Créditos</a>
+        </nav>
+      </header>
+
+      <div class="calculadora__contenido">
+        <div class="calculadora__tarjeta">
+
+          <header class="calculadora__encabezado">
+            <h1 class="calculadora__titulo">Analiza tu función</h1>
+          </header>
+
+          <!-- ----- Paso 01: construir la función ----- -->
+          <section class="paso" aria-labelledby="paso-1-titulo">
+            <header class="paso__encabezado">
+              <span class="paso__numero">01</span>
+              <h2 class="paso__titulo" id="paso-1-titulo">Construye la función</h2>
+              <p class="paso__descripcion">Selecciona un campo y escribe la expresión.</p>
+            </header>
+
+            <div class="paso__cuerpo">
+              <div class="funcion">
+                <div class="funcion__caja">
+                  <span class="funcion__nombre">f(x)</span>
+                  <span class="funcion__igual">=</span>
+
+                  <div class="funcion__fraccion">
+                    <input class="funcion__input funcion__input--activo" id="entrada-numerador"
+                           type="text" placeholder="Numerador" aria-label="Numerador"
+                           autocomplete="off" autocapitalize="off" spellcheck="false" maxlength="80">
+                    <div class="funcion__linea"></div>
+                    <input class="funcion__input" id="entrada-denominador"
+                           type="text" placeholder="Denominador" aria-label="Denominador"
+                           autocomplete="off" autocapitalize="off" spellcheck="false" maxlength="80">
+                  </div>
+                </div>
+
+                <p class="funcion__estado">
+                  Editando: <strong class="funcion__estado-campo" id="campo-activo">numerador</strong>
+                </p>
+              </div>
+            </div>
+          </section>
+
+          <!-- ----- Paso 02: teclado matemático ----- -->
+          <section class="paso" aria-labelledby="paso-2-titulo">
+            <header class="paso__encabezado">
+              <span class="paso__numero">02</span>
+              <h2 class="paso__titulo" id="paso-2-titulo">Teclado matemático</h2>
+              <p class="paso__descripcion">También puedes utilizar el teclado de tu dispositivo.</p>
+            </header>
+
+            <div class="paso__cuerpo">
+              <!--
+                Cada botón inserta lo que diga su data-tecla en el campo activo.
+                Los botones con data-accion no insertan nada: limpian o borran.
+                Las teclas con la clase teclado__tecla--operador salen con fondo gris.
+              -->
+              <div class="teclado" role="group" aria-label="Teclado matemático">
+                <button type="button" class="teclado__tecla" data-tecla="7">7</button>
+                <button type="button" class="teclado__tecla" data-tecla="8">8</button>
+                <button type="button" class="teclado__tecla" data-tecla="9">9</button>
+                <button type="button" class="teclado__tecla teclado__tecla--operador" data-tecla="/" aria-label="Dividir">/</button>
+                <button type="button" class="teclado__tecla teclado__tecla--operador" data-tecla="X">X</button>
+                <button type="button" class="teclado__tecla teclado__tecla--operador" data-tecla="X^2">X^2</button>
+
+                <button type="button" class="teclado__tecla" data-tecla="4">4</button>
+                <button type="button" class="teclado__tecla" data-tecla="5">5</button>
+                <button type="button" class="teclado__tecla" data-tecla="6">6</button>
+                <button type="button" class="teclado__tecla teclado__tecla--operador" data-tecla="*" aria-label="Multiplicar">*</button>
+                <button type="button" class="teclado__tecla teclado__tecla--operador" data-tecla="X^3">X^3</button>
+                <button type="button" class="teclado__tecla teclado__tecla--operador" data-tecla="X^">X^n</button>
+
+                <button type="button" class="teclado__tecla" data-tecla="1">1</button>
+                <button type="button" class="teclado__tecla" data-tecla="2">2</button>
+                <button type="button" class="teclado__tecla" data-tecla="3">3</button>
+                <button type="button" class="teclado__tecla teclado__tecla--operador" data-tecla="-" aria-label="Restar">-</button>
+                <button type="button" class="teclado__tecla" data-tecla="(">(</button>
+                <button type="button" class="teclado__tecla" data-tecla=")">)</button>
+
+                <button type="button" class="teclado__tecla" data-tecla="0">0</button>
+                <button type="button" class="teclado__tecla" data-tecla="." aria-label="Punto decimal">.</button>
+                <button type="button" class="teclado__tecla teclado__tecla--operador" data-tecla="+" aria-label="Sumar">+</button>
+                <button type="button" class="teclado__tecla teclado__tecla--operador" data-tecla="^" aria-label="Elevar a una potencia">^</button>
+                <button type="button" class="teclado__tecla" data-accion="limpiar" aria-label="Limpiar el campo">C</button>
+                <button type="button" class="teclado__tecla" data-accion="borrar" aria-label="Borrar un carácter">DEL</button>
+              </div>
+
+              <p class="mensaje mensaje--error" id="mensaje-error" role="alert" hidden></p>
+
+              <button type="button" class="boton boton--completo" id="boton-revisar" data-accion="revisar">Revisar función</button>
+
+              <!-- Aparece al presionar "Revisar función" -->
+              <div class="pregunta pregunta--angosta" id="confirmacion" hidden>
+                <div class="pregunta__info">
+                  <h3 class="pregunta__titulo">¿La función es correcta?</h3>
+                  <p class="pregunta__detalle" id="confirmacion-funcion"></p>
+                </div>
+                <div class="pregunta__acciones">
+                  <button type="button" class="boton boton--chico boton--contorno" data-accion="editar">No, editar</button>
+                  <button type="button" class="boton boton--chico" id="boton-analizar" data-accion="analizar">Sí, analizar</button>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- ----- Paso 03: resultados ----- -->
+          <section class="paso" id="paso-resultados" aria-labelledby="paso-3-titulo">
+            <header class="paso__encabezado">
+              <span class="paso__numero">03</span>
+              <h2 class="paso__titulo" id="paso-3-titulo">Resultados</h2>
+              <p class="paso__descripcion">Propiedades principales de la función.</p>
+            </header>
+
+            <div class="paso__cuerpo" aria-live="polite">
+              <div class="resultados">
+
+                <!-- Se muestra mientras no hay resultados -->
+                <div class="resultados__vacio" id="resultados-vacio">
+                  <span class="resultados__icono">f(x)</span>
+                  <p class="resultados__vacio-titulo">Tus resultados aparecerán aquí</p>
+                  <p class="resultados__vacio-texto">Completa y confirma la función para comenzar el análisis.</p>
+                </div>
+
+                <!-- Se muestra después de "Sí, analizar". Cada data-resultado se llena desde app.js -->
+                <div id="resultados-contenido" hidden>
+                  <dl class="resultados__cuadricula">
+                    <div class="resultado">
+                      <dt class="resultado__etiqueta"><span class="resultado__numero">01</span>Ordenada al origen</dt>
+                      <dd class="resultado__valor" data-resultado="ordenada">-</dd>
+                    </div>
+                    <div class="resultado">
+                      <dt class="resultado__etiqueta"><span class="resultado__numero">02</span>Raíz</dt>
+                      <dd class="resultado__valor" data-resultado="raiz">-</dd>
+                    </div>
+                    <div class="resultado">
+                      <dt class="resultado__etiqueta"><span class="resultado__numero">03</span>Asíntota vertical</dt>
+                      <dd class="resultado__valor" data-resultado="asintotaVertical">-</dd>
+                    </div>
+                    <div class="resultado">
+                      <dt class="resultado__etiqueta"><span class="resultado__numero">04</span>Asíntota horizontal</dt>
+                      <dd class="resultado__valor" data-resultado="asintotaHorizontal">-</dd>
+                    </div>
+                    <div class="resultado">
+                      <dt class="resultado__etiqueta"><span class="resultado__numero">05</span>Hueco</dt>
+                      <dd class="resultado__valor" data-resultado="hueco">-</dd>
+                    </div>
+                    <div class="resultado">
+                      <dt class="resultado__etiqueta"><span class="resultado__numero">06</span>Dominio</dt>
+                      <dd class="resultado__valor" data-resultado="dominio">-</dd>
+                    </div>
+                    <div class="resultado">
+                      <dt class="resultado__etiqueta"><span class="resultado__numero">07</span>Rango</dt>
+                      <dd class="resultado__valor" data-resultado="rango">-</dd>
+                    </div>
+                    <div class="resultado">
+                      <dt class="resultado__etiqueta"><span class="resultado__numero">08</span>Asíntota oblicua</dt>
+                      <dd class="resultado__valor" data-resultado="asintotaOblicua">-</dd>
+                    </div>
+                  </dl>
+
+                  <div class="pregunta">
+                    <div class="pregunta__info">
+                      <h3 class="pregunta__titulo">¿Deseas realizar otro cálculo?</h3>
+                      <p class="pregunta__detalle">Puedes limpiar los campos o finalizar la sesión.</p>
+                    </div>
+                    <div class="pregunta__acciones">
+                      <button type="button" class="boton boton--chico boton--contorno" data-accion="finalizar">No, finalizar</button>
+                      <button type="button" class="boton boton--chico" data-accion="otro-calculo">Sí, otro cálculo</button>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </section>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== VISTA 3: CRÉDITOS ========== -->
+    <section class="vista creditos" id="vista-creditos" data-vista="creditos" hidden>
+      <a class="boton boton--chico boton--contorno creditos__volver" href="#inicio">Volver al inicio</a>
+
+      <div class="creditos__contenido">
+        <div class="pizarron">
+          <h1 class="pizarron__universidad">Benemérita Universidad Autónoma de Chiapas</h1>
+
+          <p class="pizarron__funcion">f(x) = P(x) / Q(x)</p>
+
+          <dl class="pizarron__datos">
+            <div>
+              <dt>Grado</dt>
+              <dd>2° semestre</dd>
+            </div>
+            <div>
+              <dt>Grupo</dt>
+              <dd>Grupo N</dd>
+            </div>
+          </dl>
+
+          <h2 class="pizarron__subtitulo">Integrantes del equipo</h2>
+          <!-- La numeración (01, 02...) la pone el CSS; solo hay que cambiar los nombres -->
+          <ol class="integrantes">
+            <li class="integrantes__item">Alvaro Octavio Lopez Mendez</li>
+            <li class="integrantes__item">Nombre del integrante</li>
+            <li class="integrantes__item">Nombre del integrante</li>
+            <li class="integrantes__item">Nombre del integrante</li>
+            <li class="integrantes__item">Nombre del integrante</li>
+          </ol>
+
+          <p class="pizarron__pie">Cálculo Diferencial, 2026</p>
+        </div>
+        <div class="creditos__repisa" aria-hidden="true"></div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ============================================================
+       MANUAL DE USUARIO (modal)
+       Para agregar un paso: copia un bloque <li class="manual__paso">...</li>
+       completo, pégalo debajo del último y cambia el texto. La numeración es automática.
+       Dentro de un paso puedes usar:
+         <h3 class="manual__paso-titulo">     título del paso (uno por paso)
+         <h4 class="manual__paso-subtitulo">  subtítulo (opcional)
+         <p class="manual__texto">            párrafo (puedes poner varios)
+         <figure class="manual__figura">      imagen: cambia el src y el alt del <img>
+       Las imágenes se guardan en la carpeta img/.
+       ============================================================ -->
+  <dialog class="manual" id="manual" aria-labelledby="manual-titulo">
+    <button type="button" class="manual__cerrar" data-accion="cerrar-manual" aria-label="Cerrar manual">×</button>
+
+    <div class="manual__contenedor">
+      <header class="manual__encabezado">
+        <h2 class="manual__titulo" id="manual-titulo">Manual de usuario</h2>
+        <p class="manual__subtitulo">Todo lo necesario para analizar una función racional en pocos pasos.</p>
+      </header>
+
+      <ol class="manual__pasos">
+
+        <li class="manual__paso">
+          <h3 class="manual__paso-titulo">Escribe la función</h3>
+          <p class="manual__texto">Coloca el numerador en el campo superior y el denominador en el inferior.</p>
+          <p class="manual__texto">Puedes usar X, números, paréntesis y exponentes enteros.</p>
+          <figure class="manual__figura">
+            <img class="manual__imagen" src="/src/sources/images/placeholder.png" alt="Campos de numerador y denominador" width="1200" height="560">
+            <figcaption class="manual__pie">Campos de numerador y denominador.</figcaption>
+          </figure>
+        </li>
+
+        <li class="manual__paso">
+          <h3 class="manual__paso-titulo">Usa el teclado</h3>
+          <p class="manual__texto">Selecciona primero uno de los campos y utiliza los botones del teclado matemático.</p>
+          <p class="manual__texto">También puedes escribir X en mayúscula o minúscula y agregar exponentes con el símbolo ^.</p>
+          <figure class="manual__figura">
+            <img class="manual__imagen" src="/src/sources/images/placeholder.png" alt="Teclado matemático de la calculadora" width="1200" height="560">
+            <figcaption class="manual__pie">Teclado matemático.</figcaption>
+          </figure>
+        </li>
+
+        <li class="manual__paso">
+          <h3 class="manual__paso-titulo">Confirma y analiza</h3>
+          <p class="manual__texto">Revisa la fracción y confirma que sea correcta antes de iniciar el análisis.</p>
+          <p class="manual__texto">La calculadora mostrará sus propiedades principales. Se admiten exponentes enteros de 0 a 8.</p>
+          <figure class="manual__figura">
+            <img class="manual__imagen" src="/src/sources/images/placeholder.png" alt="Pregunta de confirmación de la función" width="1200" height="560">
+            <figcaption class="manual__pie">Confirmación de la función.</figcaption>
+          </figure>
+        </li>
+
+        <li class="manual__paso">
+          <h3 class="manual__paso-titulo">Lee los resultados</h3>
+          <p class="manual__texto">Se muestran la ordenada al origen, la raíz, las asíntotas (vertical, horizontal y oblicua), el hueco, el dominio y el rango.</p>
+          <p class="manual__texto">Cuando una propiedad no existe, la calculadora lo indica con el texto "No existe".</p>
+          <figure class="manual__figura">
+            <img class="manual__imagen" src="/src/sources/images/placeholder.png" alt="Cuadrícula de resultados" width="1200" height="560">
+            <figcaption class="manual__pie">Cuadrícula de resultados.</figcaption>
+          </figure>
+        </li>
+
+      </ol>
+
+      <aside class="manual__ejemplo">
+        <p class="manual__ejemplo-etiqueta">Ejemplo</p>
+        <p class="manual__ejemplo-funcion">(x² − 1) / (x − 1)</p>
+        <p class="manual__ejemplo-texto">
+          Escribe <span class="manual__codigo">X^2-1</span> arriba y <span class="manual__codigo">X-1</span> abajo.
+        </p>
+      </aside>
+
+      <button type="button" class="boton boton--completo" data-accion="comenzar">Entendido, comenzar</button>
+    </div>
+  </dialog>
+
+</body>
+</html>

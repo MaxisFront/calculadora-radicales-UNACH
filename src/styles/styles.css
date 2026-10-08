@@ -1,0 +1,936 @@
+/* ============================================================
+   Calculadora de funciones racionales - estilos globales
+   Nomenclatura BEM: bloque__elemento--modificador
+   ============================================================ */
+
+/* ---------- Variables (aquí se cambian los colores y fuentes) ---------- */
+:root {
+  --fondo: #f5f6f8;
+  --pared: #e8eaef;
+  --azul: #16264a;
+  --azul-hover: #0e1a36;
+  --pizarra: #1b2c52;
+  --texto: #1c2540;
+  --gris: #566079;
+  --linea: #d6d9e0;
+  --superficie: #eef1f6;
+  --borde-campo: #b9c4d6;
+  --dorado: #a8863f;
+  --dorado-claro: #cdb27a;
+  --dorado-texto: #7d6125;
+  --madera: #8a6d34;
+  --madera-oscura: #6e5528;
+  --tiza: #efede4;
+  --error-fondo: #fbf1ee;
+  --error-borde: #d6a79b;
+  --error-texto: #7a2e1c;
+
+  --fuente-titulos: "DM Sans", "Segoe UI", Arial, sans-serif;
+  --fuente-texto: "Source Sans 3", "Segoe UI", Arial, sans-serif;
+}
+
+/* ============================================================
+   BASE
+   ============================================================ */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* Necesario para que el atributo hidden gane sobre los display de los bloques */
+[hidden] {
+  display: none !important;
+}
+
+html {
+  font-size: 100%;
+}
+
+body {
+  margin: 0;
+  background-color: var(--fondo);
+  color: var(--texto);
+  font-family: var(--fuente-texto);
+  font-size: 1.0625rem;
+  line-height: 1.5;
+}
+
+/* Se activa mientras el manual está abierto para que la página de atrás no se mueva */
+.body--bloqueado {
+  overflow: hidden;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  margin: 0;
+  font-family: var(--fuente-titulos);
+  line-height: 1.15;
+}
+
+h1:focus {
+  outline: none;
+}
+
+p {
+  margin: 0;
+}
+
+button {
+  font: inherit;
+}
+
+a {
+  color: inherit;
+}
+
+a:focus-visible,
+button:focus-visible,
+input:focus-visible {
+  outline: 3px solid var(--dorado);
+  outline-offset: 3px;
+}
+
+.vista {
+  min-height: 100vh;
+}
+
+/* ============================================================
+   BOTÓN
+   ============================================================ */
+.boton {
+  display: inline-block;
+  padding: 0.85rem 1.9rem;
+  background-color: var(--azul);
+  border: 0;
+  border-radius: 3px;
+  color: #ffffff;
+  font-family: var(--fuente-titulos);
+  font-size: 1rem;
+  font-weight: 700;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color 0.15s;
+}
+
+.boton:hover {
+  background-color: var(--azul-hover);
+  box-shadow: inset 0 -3px 0 var(--dorado);
+}
+
+.boton--completo {
+  display: block;
+  width: 100%;
+  max-width: 730px;
+  margin: 1.25rem auto 0;
+}
+
+.boton--chico {
+  padding: 0.55rem 1rem;
+  font-size: 0.85rem;
+}
+
+/* Va después de .boton:hover para que su hover gane */
+.boton--contorno {
+  background-color: #ffffff;
+  border: 1px solid var(--borde-campo);
+  color: #3d4b6b;
+}
+
+.boton--contorno:hover {
+  background-color: var(--superficie);
+  box-shadow: none;
+}
+
+/* ============================================================
+   BARRA SUPERIOR (inicio y calculadora)
+   ============================================================ */
+.barra {
+  width: 100%;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0.75rem 1.25rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid var(--linea);
+}
+
+.barra__navegacion {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.barra__enlace {
+  color: var(--gris);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.barra__enlace:hover {
+  color: var(--azul);
+  text-decoration: underline;
+  text-decoration-color: var(--dorado);
+  text-decoration-thickness: 2px;
+  text-underline-offset: 6px;
+}
+
+/* Cuando el enlace es en realidad un <button> */
+.barra__enlace--boton {
+  padding: 0;
+  background: none;
+  border: 0;
+  cursor: pointer;
+}
+
+.marca {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  text-decoration: none;
+}
+
+.marca__logo {
+  width: 2.2rem;
+  height: 2.2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--azul);
+  border-radius: 2px;
+  color: #ffffff;
+  font-family: var(--fuente-titulos);
+  font-size: 0.95rem;
+  font-weight: 700;
+}
+
+.marca__nombre {
+  color: var(--azul);
+  font-family: var(--fuente-titulos);
+  font-size: 1.2rem;
+  font-weight: 700;
+}
+
+/* ============================================================
+   VISTA: INICIO
+   ============================================================ */
+.inicio {
+  display: flex;
+  flex-direction: column;
+}
+
+.portada {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem 1.25rem 6rem;
+  text-align: center;
+}
+
+.portada__titulo {
+  margin-bottom: 1.25rem;
+  color: var(--azul);
+  font-size: clamp(2.2rem, 6vw, 3.6rem);
+}
+
+.portada__titulo strong {
+  display: block;
+  font-weight: 700;
+}
+
+.portada__titulo span {
+  display: block;
+  font-weight: 400;
+}
+
+.portada__descripcion {
+  max-width: 34rem;
+  margin-bottom: 2rem;
+  color: var(--gris);
+  font-size: 1.15rem;
+}
+
+.portada__manual {
+  margin-top: 1.1rem;
+  padding: 0;
+  background: none;
+  border: 0;
+  border-bottom: 1px solid var(--gris);
+  color: var(--gris);
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+
+.portada__manual:hover {
+  color: var(--azul);
+  border-bottom-color: var(--dorado);
+}
+
+/* ============================================================
+   VISTA: CALCULADORA
+   ============================================================ */
+.calculadora__contenido {
+  max-width: 1100px;
+  margin: 1.5rem auto 3rem;
+  padding: 0 1.25rem;
+}
+
+.calculadora__tarjeta {
+  background-color: #ffffff;
+  border: 1px solid var(--linea);
+}
+
+.calculadora__encabezado {
+  padding: 1.6rem 2rem;
+  border-bottom: 3px solid var(--dorado);
+}
+
+.calculadora__titulo {
+  color: var(--azul);
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+/* ---------- Paso (01, 02, 03) ---------- */
+.paso {
+  padding: 1.75rem 2rem 2rem;
+  border-top: 1px solid var(--linea);
+}
+
+/* El primer paso ya tiene la línea dorada arriba */
+.calculadora__encabezado + .paso {
+  border-top: 0;
+}
+
+.paso__encabezado {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  column-gap: 1rem;
+  row-gap: 0.15rem;
+  margin-bottom: 1.5rem;
+}
+
+.paso__numero {
+  grid-row: 1 / span 2;
+  align-self: start;
+  min-width: 2rem;
+  padding: 0.25rem 0.4rem;
+  border: 1px solid var(--azul);
+  color: var(--azul);
+  font-family: var(--fuente-titulos);
+  font-size: 0.8rem;
+  font-weight: 500;
+  text-align: center;
+}
+
+.paso__titulo {
+  color: var(--azul);
+  font-size: 1.1rem;
+  font-weight: 500;
+}
+
+.paso__descripcion {
+  color: var(--gris);
+  font-size: 0.9rem;
+}
+
+/* ---------- Función f(x) = numerador / denominador ---------- */
+.funcion {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.funcion__caja {
+  width: 100%;
+  max-width: 720px;
+  padding: 2rem 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.25rem;
+  background-color: #ffffff;
+  border: 1px solid var(--borde-campo);
+}
+
+.funcion__nombre {
+  color: var(--azul);
+  font-family: var(--fuente-titulos);
+  font-size: 2rem;
+}
+
+.funcion__igual {
+  color: #8a94aa;
+  font-size: 1.3rem;
+  font-weight: 600;
+}
+
+.funcion__fraccion {
+  flex: 1;
+  min-width: 0;
+  max-width: 380px;
+  display: flex;
+  flex-direction: column;
+}
+
+.funcion__linea {
+  height: 2px;
+  margin: 2px 0;
+  background-color: var(--azul);
+}
+
+.funcion__input {
+  width: 100%;
+  padding: 0.55rem 0.5rem;
+  background-color: transparent;
+  border: 1px solid transparent;
+  border-radius: 0;
+  color: var(--azul);
+  font-family: var(--fuente-titulos);
+  font-size: 1.2rem;
+  text-align: center;
+}
+
+.funcion__input::placeholder {
+  color: #9aa7bd;
+  font-size: 0.95rem;
+}
+
+/* Campo que está recibiendo lo que se escribe (lo pone app.js) */
+.funcion__input--activo {
+  background-color: var(--superficie);
+  border-color: var(--borde-campo);
+}
+
+.funcion__estado {
+  margin-top: 0.75rem;
+  color: var(--gris);
+  font-size: 0.85rem;
+}
+
+.funcion__estado-campo {
+  color: var(--dorado-texto);
+}
+
+/* ---------- Teclado virtual ---------- */
+.teclado {
+  max-width: 730px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 6px;
+}
+
+.teclado__tecla {
+  min-height: 2.9rem;
+  background-color: #ffffff;
+  border: 1px solid #cdd3de;
+  border-radius: 2px;
+  color: var(--azul);
+  font-family: var(--fuente-titulos);
+  font-size: 0.95rem;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.teclado__tecla--operador {
+  background-color: var(--superficie);
+  border-color: var(--borde-campo);
+}
+
+.teclado__tecla:hover {
+  background-color: #e3e8f1;
+}
+
+.teclado__tecla:active {
+  background-color: #d5dcea;
+}
+
+/* ---------- Mensajes ---------- */
+.mensaje {
+  max-width: 730px;
+  margin: 1rem auto 0;
+  padding: 0.7rem 1rem;
+  border: 1px solid;
+  font-size: 0.95rem;
+}
+
+.mensaje--error {
+  background-color: var(--error-fondo);
+  border-color: var(--error-borde);
+  color: var(--error-texto);
+}
+
+/* ---------- Pregunta con botones (confirmar función / otro cálculo) ---------- */
+.pregunta {
+  margin-top: 1.25rem;
+  padding: 1rem 1.25rem;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  background-color: var(--fondo);
+  border: 1px solid var(--borde-campo);
+}
+
+.pregunta--angosta {
+  max-width: 730px;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.pregunta__titulo {
+  color: var(--azul);
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+.pregunta__detalle {
+  margin-top: 0.15rem;
+  color: var(--gris);
+  font-size: 0.9rem;
+  overflow-wrap: anywhere;
+}
+
+.pregunta__acciones {
+  display: flex;
+  gap: 0.5rem;
+}
+
+/* ---------- Resultados ---------- */
+.resultados__vacio {
+  padding: 3rem 1.5rem;
+  background-color: #fafbfc;
+  border: 1px dashed var(--borde-campo);
+  text-align: center;
+}
+
+.resultados__icono {
+  display: inline-block;
+  margin-bottom: 1rem;
+  padding: 0.9rem 1rem;
+  background-color: #e6eaf2;
+  color: var(--azul);
+  font-family: var(--fuente-titulos);
+  font-weight: 700;
+}
+
+.resultados__vacio-titulo {
+  margin-bottom: 0.25rem;
+  color: var(--gris);
+  font-family: var(--fuente-titulos);
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+.resultados__vacio-texto {
+  color: #7b869c;
+  font-size: 0.9rem;
+}
+
+.resultados__cuadricula {
+  margin: 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1px;
+  background-color: var(--borde-campo);
+  border: 1px solid var(--borde-campo);
+}
+
+.resultado {
+  padding: 1.1rem 1.4rem 1.25rem;
+  background-color: #ffffff;
+}
+
+.resultado__etiqueta {
+  margin: 0 0 0.45rem;
+  color: var(--gris);
+  font-size: 0.9rem;
+}
+
+.resultado__numero {
+  margin-right: 0.6rem;
+  color: var(--dorado-texto);
+  font-size: 0.85rem;
+}
+
+.resultado__valor {
+  margin: 0;
+  color: var(--azul);
+  font-family: var(--fuente-titulos);
+  font-size: 1.35rem;
+  font-weight: 700;
+  overflow-wrap: anywhere;
+}
+
+/* ============================================================
+   VISTA: CRÉDITOS (pizarrón)
+   ============================================================ */
+.creditos {
+  position: relative;
+  padding: 5rem 1.25rem 3rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--pared);
+}
+
+.creditos__volver {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+}
+
+.creditos__contenido {
+  width: 100%;
+  max-width: 920px;
+}
+
+/* Repisa donde va la tiza */
+.creditos__repisa {
+  width: 96%;
+  height: 12px;
+  margin: 0 auto;
+  background-color: var(--madera-oscura);
+  border-radius: 0 0 4px 4px;
+}
+
+.pizarron {
+  padding: 2.5rem 2rem 1.75rem;
+  background-color: var(--pizarra);
+  border: 14px solid var(--madera);
+  border-radius: 4px;
+  color: var(--tiza);
+  font-style: normal;
+  text-align: center;
+}
+
+.pizarron__universidad {
+  max-width: 34rem;
+  margin: 0 auto 1.25rem;
+  font-size: clamp(1.5rem, 3.4vw, 2.2rem);
+  font-weight: 500;
+}
+
+.pizarron__funcion {
+  margin-bottom: 1.5rem;
+  color: var(--dorado-claro);
+  font-family: var(--fuente-titulos);
+  font-size: 1.3rem;
+}
+
+.pizarron__datos {
+  margin: 0 0 2rem;
+  display: flex;
+  justify-content: center;
+  gap: 4rem;
+}
+
+.pizarron__datos dt {
+  color: var(--dorado-claro);
+  font-size: 0.85rem;
+}
+
+.pizarron__datos dd {
+  margin: 0;
+  font-family: var(--fuente-titulos);
+  font-size: 1.35rem;
+}
+
+.pizarron__subtitulo {
+  margin-bottom: 1.25rem;
+  color: var(--dorado-claro);
+  font-size: 1.4rem;
+  font-weight: 400;
+}
+
+.pizarron__pie {
+  color: rgba(239, 237, 228, 0.7);
+  font-size: 0.85rem;
+}
+
+.integrantes {
+  margin: 0 0 1.75rem;
+  padding: 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.9rem 2.5rem;
+  list-style: none;
+  text-align: left;
+  counter-reset: integrante;
+}
+
+.integrantes__item {
+  padding-bottom: 0.4rem;
+  border-bottom: 1px dashed rgba(239, 237, 228, 0.4);
+  counter-increment: integrante;
+}
+
+.integrantes__item::before {
+  content: counter(integrante, decimal-leading-zero);
+  margin-right: 0.7rem;
+  color: var(--dorado-claro);
+  font-size: 0.85rem;
+}
+
+/* Si el número de integrantes es impar, el último queda centrado */
+.integrantes__item:last-child:nth-child(odd) {
+  grid-column: 1 / -1;
+  justify-self: center;
+  min-width: 50%;
+}
+
+/* ============================================================
+   MODAL: MANUAL DE USUARIO
+   Usa la etiqueta <dialog>: Esc y el foco los maneja el navegador.
+   ============================================================ */
+.manual {
+  width: min(920px, 94vw);
+  max-height: 92vh;
+  padding: 0;
+  background-color: #ffffff;
+  border: 0;
+  border-radius: 4px;
+  color: var(--texto);
+  overflow: hidden;
+}
+
+.manual::backdrop {
+  background-color: rgba(14, 26, 54, 0.75);
+  backdrop-filter: blur(5px);
+}
+
+.manual__cerrar {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  width: 2.2rem;
+  height: 2.2rem;
+  background-color: #ffffff;
+  border: 1px solid var(--borde-campo);
+  border-radius: 2px;
+  color: var(--azul);
+  font-size: 1.3rem;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.manual__cerrar:hover {
+  background-color: var(--superficie);
+}
+
+.manual__contenedor {
+  max-height: 92vh;
+  padding: 2.5rem 2.75rem 2.25rem;
+  overflow-y: auto;
+  font-size: 1.1rem;
+  font-weight: 500;
+  line-height: 1.65;
+}
+
+.manual__encabezado {
+  margin-bottom: 1.5rem;
+  padding-right: 2.5rem;
+}
+
+.manual__titulo {
+  margin-bottom: 0.5rem;
+  color: var(--azul);
+  font-size: 2.1rem;
+  font-weight: 700;
+}
+
+.manual__subtitulo {
+  color: var(--gris);
+  font-size: 1.1rem;
+}
+
+.manual__pasos {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border-bottom: 1px solid var(--linea);
+  counter-reset: paso;
+}
+
+/* El número (01, 02...) sale del ::before; todo lo demás va en la segunda columna */
+.manual__paso {
+  padding: 1.75rem 0 2rem;
+  display: grid;
+  grid-template-columns: 3rem 1fr;
+  border-top: 1px solid var(--linea);
+  counter-increment: paso;
+}
+
+.manual__paso::before {
+  content: counter(paso, decimal-leading-zero);
+  grid-column: 1;
+  grid-row: 1;
+  padding-top: 0.15rem;
+  color: var(--azul);
+  font-family: var(--fuente-titulos);
+  font-size: 1.05rem;
+  font-weight: 700;
+}
+
+.manual__paso > * {
+  grid-column: 2;
+}
+
+.manual__paso-titulo {
+  margin-bottom: 0.5rem;
+  color: var(--azul);
+  font-size: 1.3rem;
+  font-weight: 700;
+}
+
+.manual__paso-subtitulo {
+  margin: 0.75rem 0 0.35rem;
+  color: var(--azul);
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+.manual__texto {
+  margin-bottom: 0.6rem;
+  color: #232d4b;
+}
+
+.manual__figura {
+  margin: 1rem 0 0;
+}
+
+.manual__imagen {
+  display: block;
+  width: 100%;
+  height: auto;
+  background-color: var(--superficie);
+  border: 1px solid var(--linea);
+}
+
+.manual__pie {
+  margin-top: 0.4rem;
+  color: var(--gris);
+  font-size: 0.9rem;
+}
+
+.manual__ejemplo {
+  margin: 1.75rem 0;
+  padding: 1.1rem 1.4rem;
+  background-color: var(--superficie);
+  border: 1px solid var(--borde-campo);
+}
+
+.manual__ejemplo-etiqueta {
+  margin-bottom: 0.25rem;
+  color: var(--dorado-texto);
+  font-family: var(--fuente-titulos);
+  font-size: 0.95rem;
+  font-weight: 700;
+}
+
+.manual__ejemplo-funcion {
+  color: var(--azul);
+  font-family: var(--fuente-titulos);
+  font-size: 1.4rem;
+  font-weight: 500;
+}
+
+.manual__ejemplo-texto {
+  color: var(--gris);
+}
+
+.manual__codigo {
+  padding: 0.05rem 0.35rem;
+  background-color: #ffffff;
+  border: 1px solid var(--borde-campo);
+  color: var(--azul);
+  font-weight: 600;
+}
+
+/* ============================================================
+   PANTALLAS PEQUEÑAS
+   ============================================================ */
+@media (max-width: 640px) {
+  .calculadora__contenido {
+    padding: 0 0.75rem;
+  }
+
+  .calculadora__encabezado {
+    padding: 1.25rem 1rem;
+  }
+
+  .paso {
+    padding: 1.5rem 1rem 1.75rem;
+  }
+
+  .funcion__caja {
+    padding: 1.25rem 0.75rem;
+    gap: 0.75rem;
+  }
+
+  .funcion__nombre {
+    font-size: 1.5rem;
+  }
+
+  .teclado__tecla {
+    min-height: 2.6rem;
+    font-size: 0.85rem;
+  }
+
+  .pregunta__acciones {
+    width: 100%;
+  }
+
+  .pregunta__acciones .boton {
+    flex: 1;
+  }
+
+  .resultados__cuadricula {
+    grid-template-columns: 1fr;
+  }
+
+  .pizarron {
+    padding: 1.75rem 1.1rem 1.25rem;
+    border-width: 10px;
+  }
+
+  .pizarron__datos {
+    gap: 2rem;
+  }
+
+  .integrantes {
+    grid-template-columns: 1fr;
+  }
+
+  .integrantes__item:last-child:nth-child(odd) {
+    justify-self: stretch;
+    min-width: 0;
+  }
+
+  .manual__contenedor {
+    padding: 1.75rem 1.25rem 1.5rem;
+    font-size: 1.05rem;
+  }
+
+  .manual__titulo {
+    font-size: 1.7rem;
+  }
+
+  .manual__paso {
+    grid-template-columns: 2.4rem 1fr;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .boton {
+    transition: none;
+  }
+}
