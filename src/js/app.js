@@ -119,26 +119,21 @@
 
 
   // ------------------------------------------------------------
-  // ⚠️ AQUÍ TRABAJA QUIEN HAGA LA MATEMÁTICA ⚠️
-  // calculateMath recibe el texto del numerador y del denominador.
-  // Por ahora no calcula nada: manda valores de prueba a la pantalla.
-  // Cuando esté lista, hay que reemplazar los valores de "resultados"
-  // por los reales y dejar la llamada a mostrarResultados(resultados).
+  // PUENTE ENTRE LA PANTALLA Y EL MOTOR MATEMÁTICO
+  // Toda la matemática vive en motor-racional.js (MotorRacional).
+  // calculateMath solo le manda los textos y pinta lo que regresa.
+  // Devuelve true si se pudo calcular y false si hubo un error.
   // ------------------------------------------------------------
   function calculateMath(numerator, denominator) {
-    // TODO: calcular con numerator y denominator
-    var resultados = {
-      ordenada: 'Valor de prueba',
-      raiz: 'Valor de prueba',
-      asintotaVertical: 'Valor de prueba',
-      asintotaHorizontal: 'Valor de prueba',
-      hueco: 'Valor de prueba',
-      dominio: 'Valor de prueba',
-      rango: 'Valor de prueba',
-      asintotaOblicua: 'Valor de prueba'
-    };
+    var analisis = MotorRacional.analizar(numerator, denominator);
 
-    mostrarResultados(resultados);
+    if (!analisis.ok) {
+      mostrarError(analisis.error);
+      return false;
+    }
+
+    mostrarResultados(analisis.texto);
+    return true;
   }
 
   // Escribe cada valor en su celda (la que tiene data-resultado="clave")
@@ -260,6 +255,12 @@
     if (!CARACTERES_VALIDOS.test(denominador)) {
       return { mensaje: 'El denominador tiene caracteres no válidos. Usa números, X, + - * / ^ y paréntesis.', campo: 'denominador' };
     }
+
+    // El motor revisa que sean polinomios bien escritos (paréntesis, exponentes, grado máximo)
+    var errorMotor = MotorRacional.validar(numerador, denominador);
+    if (errorMotor) {
+      return errorMotor;
+    }
     return null;
   }
 
@@ -321,7 +322,10 @@
     var denominador = entradas.denominador.value.trim();
 
     panelConfirmacion.hidden = true;
-    calculateMath(numerador, denominador);
+    if (!calculateMath(numerador, denominador)) {
+      botonRevisar.hidden = false;
+      return;
+    }
 
     resultadosVacio.hidden = true;
     resultadosContenido.hidden = false;
