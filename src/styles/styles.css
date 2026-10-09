@@ -200,7 +200,7 @@ input:focus-visible {
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: var(--azul);
+  /* background-color: var(--azul); */
   border-radius: 2px;
   color: #ffffff;
   font-family: var(--fuente-titulos);

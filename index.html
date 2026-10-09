@@ -27,7 +27,7 @@
     <section class="vista inicio" id="vista-inicio" data-vista="inicio">
       <header class="barra">
         <a class="marca" href="#inicio">
-          <span class="marca__logo">U</span>
+          <span class="marca__logo"><img src="./src/sources/images/UNACHv2.png" alt="" height="30px"></span>
           <span class="marca__nombre">UNACH</span>
         </a>
         <a class="barra__enlace" href="#creditos">Créditos</a>
@@ -50,7 +50,7 @@
     <section class="vista calculadora" id="vista-calculadora" data-vista="calculadora" hidden>
       <header class="barra">
         <a class="marca" href="#inicio">
-          <span class="marca__logo">U</span>
+          <span class="marca__logo"><img src="./src/sources/images/UNACHv2.png" alt="" height="30px"></span>
           <span class="marca__nombre">UNACH</span>
         </a>
         <nav class="barra__navegacion" aria-label="Principal">
@@ -259,10 +259,10 @@
           <h2 class="pizarron__subtitulo">Integrantes del equipo</h2>
           <!-- La numeración (01, 02...) la pone el CSS; solo hay que cambiar los nombres -->
           <ol class="integrantes">
+            <li class="integrantes__item">Adrián Alexander Corzo - Diseño y Programación</li>
             <li class="integrantes__item">Alvaro Octavio Lopez Mendez - Ideas y Redacción</li>
             <li class="integrantes__item">Brandon Sánchez Roblero - Diseño y Programación</li>
-            <li class="integrantes__item">Danny Sarai Torres Ocaña - Testing y Redacción</li>
-            <li class="integrantes__item">Adrián Alexander Corzo - Diseño y Programación</li>
+            <li class="integrantes__item">Carmen Siomara Paz La Parra - Testing y Redacción</li>
             <li class="integrantes__item">Estefania Méndez Hernández - Diseño y Redacción</li>
           </ol>
 
@@ -362,30 +362,30 @@
   <!-- ==================== INTEGRANTE 3 ==================== -->
   <li class="manual__paso">
     <h3 class="manual__paso-titulo">Hueco (Discontinuidad evitable)</h3>
-    <p class="manual__texto">Es una discontinuidad removible que se genera cuando el numerador y el denominador comparten un factor común, provocando una indeterminación 0/0 en un punto específico de la curva.</p>
-    <p class="manual__texto">El motor aplica el Máximo Común Divisor (MCD) algebraico con el Algoritmo de Euclides para cancelar los factores comunes y evalúa el límite en la función simplificada, mostrando la posición exacta en formato de punto (x, y).</p>
+    <p class="manual__texto">Un hueco o discontinuidad evitable ocurre en aquellos puntos del dominio donde la función no está definida, pero existe un límite finito a medida que la variable se aproxima a dicho valor. Formalmente, en una función racional f(x) = Q(x) / P(x). Se presenta esta discontinuidad cuando existe un valor x=c que cancela tanto al numerador como al denominador (P(c)=0 y Q(c)=0), haciendo que el factor (x−c) sea común a ambas partes.</p>
+    <p class="manual__texto">El motor matemático determina los huecos factorizando simultáneamente el numerador P(x) y el denominador Q(x) para identificar los factores comunes. Posteriormente, evalúa las raíces de estos factores compartidos para obtener las coordenadas en el eje X, y finalmente simplifica la función evaluando la expresión resultante en dichos puntos para calcular las coordenadas correspondientes en el eje Y.</p>
     <figure class="manual__figura">
-      <img class="manual__imagen" src="./src/sources/images/placeholder.png" alt="Resultado de huecos" width="1200" height="560">
+      <img class="manual__imagen" src="./src/sources/images/Manual_Tema_7.jpeg" alt="Resultado de huecos" width="1200" height="560">
       <figcaption class="manual__pie">Coordenadas del hueco en la gráfica.</figcaption>
     </figure>
   </li>
 
   <li class="manual__paso">
     <h3 class="manual__paso-titulo">Asíntota vertical</h3>
-    <p class="manual__texto">Son rectas verticales invisibles de la forma X = a hacia las cuales la gráfica tiende al infinito positivo o negativo a medida que los valores de entrada se aproximan a la discontinuidad no evitable.</p>
-    <p class="manual__texto">Se calculan encontrando las raíces reales del denominador Q(X) una vez que la función ha sido simplificada (sin factores comunes), desplegándose en pantalla como ecuaciones del tipo X = a.</p>
+    <p class="manual__texto">Las asíntotas verticales son rectas verticales de la forma x=a hacia las cuales la gráfica de la función tiende hacia positivo o negativo infinito a medida que los valores de entrada se aproximan a una discontinuidad no evitable. Esto sucede cuando el límite de la función tiende a ±∞ al acercarse a dicho valor desde la izquierda o la derecha.</p>
+    <p class="manual__texto"> Se calculan simplificando primero la función racional dividiendo los factores comunes (cancelando los huecos). A continuación, encuentra las raíces reales restantes únicamente en el denominador Q(x) y despliega los valores obtenidos como las ecuaciones de las rectas tipo x=a</p>
     <figure class="manual__figura">
-      <img class="manual__imagen" src="./src/sources/images/placeholder.png" alt="Resultado de asíntota vertical" width="1200" height="560">
+      <img class="manual__imagen" src="./src/sources/images/Manual_Tema_8.jpeg" alt="Resultado de asíntota vertical" width="1200" height="560">
       <figcaption class="manual__pie">Ecuaciones de asíntotas verticales.</figcaption>
     </figure>
   </li>
 
   <li class="manual__paso">
     <h3 class="manual__paso-titulo">Asíntota horizontal</h3>
-    <p class="manual__texto">Es una recta horizontal de la forma Y = b que indica el límite al que se aproxima la función cuando la variable X toma valores infinitamente grandes o pequeños (hacia +∞ o -∞).</p>
-    <p class="manual__texto">El sistema compara los grados polinómicos: si el grado del numerador es menor que el del denominador resulta en Y = 0; si ambos grados son iguales divide sus coeficientes principales; si es mayor retorna "No existe".</p>
+    <p class="manual__texto">Una asíntota horizontal es una recta de la forma y=k que describe el comportamiento final de la función a medida que la variable independiente x tiende hacia infinito positivo (+∞) o infinito negativo (−∞). Representa el valor límite o tendencia constante que alcanza la función en los extremos de la gráfica.</p>
+    <p class="manual__texto">El motor matemático analiza el grado máximo del polinomio del numerador en relación con el grado del polinomio del denominador. Comparando ambos grados, aplica las reglas clásicas de límites al infinito: si el grado del denominador es mayor, establece y=0; si los grados son iguales, calcula el cociente de los coeficientes principales para obtener el valor y=k; y si el grado del numerador es mayor, concluye la ausencia de asíntotas horizontales.</p>
     <figure class="manual__figura">
-      <img class="manual__imagen" src="./src/sources/images/placeholder.png" alt="Resultado de asíntota horizontal" width="1200" height="560">
+      <img class="manual__imagen" src="./src/sources/images/Manual_Tema_9.jpeg" alt="Resultado de asíntota horizontal" width="1200" height="560">
       <figcaption class="manual__pie">Ecuación de la asíntota horizontal.</figcaption>
     </figure>
   </li>
@@ -393,31 +393,35 @@
   <!-- ==================== INTEGRANTE 4 ==================== -->
   <li class="manual__paso">
     <h3 class="manual__paso-titulo">Asíntota oblicua</h3>
-    <p class="manual__texto">Es una recta inclinada Y = mX + b a la que la función se aproxima en los extremos infinitos. Ocurre de forma exclusiva cuando el grado del numerador supera por exactamente una unidad al grado del denominador.</p>
-    <p class="manual__texto">El motor realiza la división polinómica de P(X) entre Q(X), extrae el cociente de primer grado resultante (omitiendo el residuo) y presenta la recta resultante formateada como Y = mX + b.</p>
+          <p class="manual__texto">La calculadora verifica si el grado del numerador es uno más que el del denominador. Si es así, realiza la división de polinomios</p>
+          <p class="manual__texto"> El resultado de esa división, sin tomar en cuenta el residuo, es la ecuación de la asíntota oblicua, que representa el comportamiento de la función en el infinito.</p>
     <figure class="manual__figura">
-      <img class="manual__imagen" src="./src/sources/images/placeholder.png" alt="Resultado de asíntota oblicua" width="1200" height="560">
-      <figcaption class="manual__pie">Ecuación de la asíntota oblicua.</figcaption>
+      <img class="manual__imagen" src="./src/sources/images/Manual_Tema_10_1.jpeg" alt="Resultado de asíntota oblicua" width="1200" height="560">
+      <figcaption class="manual__pie">Representación HTML.</figcaption>
+      <img class="manual__imagen" src="./src/sources/images/Manual_Tema_10_2.jpeg" alt="Resultado de asíntota oblicua" width="1200" height="560">
+      <figcaption class="manual__pie">Representación JS.</figcaption>
     </figure>
   </li>
 
   <li class="manual__paso">
     <h3 class="manual__paso-titulo">Rango de la función</h3>
-    <p class="manual__texto">Es el conjunto de todos los valores de salida en el eje Y que la función puede tomar efectivamente. Considera los límites laterales, las asíntotas y los valores alcanzados en los puntos críticos locales.</p>
-    <p class="manual__texto">El motor fragmenta la curva en tramos según sus asíntotas verticales, resuelve la primera derivada f'(x) = 0 para determinar máximos y mínimos, calcula límites en los extremos y une los intervalos en notación de conjuntos.</p>
+          <p class="manual__texto">Para el rango, primero dividimos el dominio usando las asíntotas verticales. En cada intervalo continuo, el rango va del mínimo al máximo.</p>
+          <p class="manual__texto"> Esos extremos solo pueden estar en un punto crítico donde la derivada es cero, o ser un límite hacia una asíntota o hacia el infinito.</p>
+          <p class="manual__texto"> Unimos los rangos de todos los intervalos y finalmente eliminamos los valores de y que corresponden a huecos, siempre que no se alcancen en otro punto de la función.</p>
     <figure class="manual__figura">
-      <img class="manual__imagen" src="./src/sources/images/placeholder.png" alt="Resultado del rango" width="1200" height="560">
+      <img class="manual__imagen" src="./src/sources/images/Manual_Tema_11.jpeg" alt="Resultado del rango" width="1200" height="560">
       <figcaption class="manual__pie">Intervalos del rango calculados.</figcaption>
     </figure>
   </li>
 
   <li class="manual__paso">
     <h3 class="manual__paso-titulo">Limitantes técnicas del sistema</h3>
-    <p class="manual__texto">Definen los bordes de cómputo dentro del navegador para garantizar precisión matemática, evitar sobrecargas de procesamiento y mantener una respuesta instantánea en la interfaz gráfica.</p>
-    <p class="manual__texto">El sistema procesa únicamente polinomios reales con exponentes enteros entre 0 y 4 (grado máximo 4), ignorando soluciones complejas/imaginarias y redondeando los valores numéricos a 3 decimales.</p>
+          <p class="manual__texto"> El sistema está limitado a funciones racionales con polinomios de grado 0 a 4, trabajando solo con raíces reales y con aritmética de punto flotante.</p>
+          <p class="manual__texto"> Esto implica un error de aproximación controlado con tolerancias EPS y CERCA, y una salida redondeada a 3 decimales por legibilidad.</p>
+          <p class="manual__texto"> No contempla raíces complejas ni funciones trascendentes, por ser un alcance académico de Cálculo Diferencial.</p>
     <figure class="manual__figura">
-      <img class="manual__imagen" src="./src/sources/images/placeholder.png" alt="Limitantes del sistema" width="1200" height="560">
-      <figcaption class="manual__pie">Rango de compatibilidad del motor.</figcaption>
+      <img class="manual__imagen" src="./src/sources/images/Manual_Tema_12.jpeg" alt="Limitantes del sistema" width="1200" height="560">
+      <figcaption class="manual__pie">Representación en JS.</figcaption>
     </figure>
   </li>
 
