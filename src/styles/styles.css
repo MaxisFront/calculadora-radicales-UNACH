@@ -594,6 +594,11 @@ input:focus-visible {
 }
 
 /* Repisa donde va la tiza */
+
+#vista-creditos {
+  background-color: var(--fondo);
+}
+
 .creditos__repisa {
   width: 96%;
   height: 12px;
@@ -671,6 +676,7 @@ input:focus-visible {
   padding-bottom: 0.4rem;
   border-bottom: 1px dashed rgba(239, 237, 228, 0.4);
   counter-increment: integrante;
+  text-align: center;
 }
 
 .integrantes__item::before {
